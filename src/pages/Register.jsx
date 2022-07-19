@@ -1,6 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 
 const Register = () => {
+  const [firstName, setFirstName] = useState();
+  const [lastName, setLastName] = useState();
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(firstName, lastName);
+  };
   return (
     <div className="d-flex justify-content-center">
       <div className="form-image d-none d-md-block">
@@ -8,7 +16,7 @@ const Register = () => {
       </div>
       <div className="register-form">
         <h1 className="form-title display-3">Register</h1>
-        <form id="register">
+        <form id="register" onSubmit={handleSubmit}>
           <div className="mb-3">
             <label htmlFor="firstName" className="form-label">
               First Name
@@ -19,6 +27,7 @@ const Register = () => {
               id="firstName"
               placeholder="Enter Your First Name"
               required
+              onChange={(e) => setFirstName(e.target.value)}
             />
             <label htmlFor="lastName" className="form-label">
               Last Name
@@ -29,6 +38,7 @@ const Register = () => {
               id="lastName"
               placeholder="Enter Your Last Name"
               required
+              onChange={(e) => setLastName(e.target.value)}
             />
             <label htmlFor="email" className="form-label">
               Email
@@ -39,6 +49,7 @@ const Register = () => {
               id="email"
               placeholder="Enter Your Email"
               required
+              onChange={(e) => setEmail(e.target.value)}
             />
             <label htmlFor="password" className="form-label">
               Password
@@ -49,6 +60,7 @@ const Register = () => {
               id="password"
               placeholder="Enter Your Password"
               required
+              onChange={(e) => setPassword(e.target.value)}
             />
           </div>
           <input
