@@ -1,13 +1,15 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
-
+import { AuthContext } from "../context/AuthContext";
+import { logOut } from "../auth/firebase";
 const Navbar = () => {
+  const { currentUser } = useContext(AuthContext);
   const navigate = useNavigate();
-  const currentUser = { displayName: "birkan" }; // demo authentication
+  // const currentUser = { displayName: "birkan" }; // demo authentication
   // const currentUser = false;
   return (
     <div>
-      <nav className="navbar navbar-expand-lg bg-primary">
+      <nav className="navbar navbar-expand-lg ">
         <div className="container-fluid">
           <Link to={"/"} className="navbar-brand text-white">
             <h4>React Movie App</h4>
@@ -20,7 +22,7 @@ const Navbar = () => {
                 </h5>
                 <button
                   className="ms-2 btn btn-outline-light"
-                  onClick={() => navigate("/")}
+                  onClick={() => logOut()}
                 >
                   LogOut
                 </button>

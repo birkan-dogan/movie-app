@@ -10,8 +10,9 @@ const Register = () => {
   const [password, setPassword] = useState();
   const handleSubmit = (e) => {
     e.preventDefault();
+    const displayName = `${firstName} ${lastName}`;
     // console.log(firstName, lastName);
-    createUser(email, password, navigate);
+    createUser(email, password, navigate, displayName);
   };
   return (
     <div className="d-flex justify-content-center">

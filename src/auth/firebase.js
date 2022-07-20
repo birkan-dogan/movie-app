@@ -4,6 +4,9 @@ import {
   getAuth,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  onAuthStateChanged,
+  signOut,
+  updateProfile,
 } from "firebase/auth";
 
 const firebaseConfig = {
@@ -19,13 +22,16 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
-export const createUser = async (email, password, navigate) => {
+export const createUser = async (email, password, navigate, displayName) => {
   try {
     let userCredential = await createUserWithEmailAndPassword(
       auth,
       email,
       password
     );
+    await updateProfile(auth.currentUser, {
+      displayName, // displayName:displayName
+    });
     navigate("/");
     console.log(userCredential);
   } catch (err) {
@@ -44,4 +50,22 @@ export const signIn = async (email, password, navigate) => {
   } catch (err) {
     console.log(err);
   }
+};
+
+export const userObserver = (setCurrentUser) => {
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      // User is signed in, see docs for a list of available properties
+      // https://firebase.google.com/docs/reference/js/firebase.User
+      setCurrentUser(user);
+      // ...
+    } else {
+      // User is signed out
+      // ...
+      setCurrentUser(false);
+    }
+  });
+};
+export const logOut = () => {
+  signOut(auth);
 };
