@@ -10,6 +10,7 @@ import {
   GoogleAuthProvider,
   signInWithPopup,
 } from "firebase/auth";
+import { toastErrorNotify, toastSuccessNotify } from "../helpers/ToastNotify";
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -35,9 +36,10 @@ export const createUser = async (email, password, navigate, displayName) => {
       displayName, // displayName:displayName
     });
     navigate("/");
-    console.log(userCredential);
+    toastSuccessNotify("Registered Successfully");
+    // console.log(userCredential);
   } catch (err) {
-    console.log(err);
+    toastErrorNotify(err.message);
   }
 };
 export const signIn = async (email, password, navigate) => {
@@ -48,9 +50,11 @@ export const signIn = async (email, password, navigate) => {
       password
     );
     navigate("/");
-    console.log(userCredential);
+    // console.log(userCredential);
+    toastSuccessNotify("Registered Successfully");
   } catch (err) {
-    console.log(err);
+    // console.log(err);
+    toastErrorNotify(err.message);
   }
 };
 
@@ -70,16 +74,19 @@ export const userObserver = (setCurrentUser) => {
 };
 export const logOut = () => {
   signOut(auth);
+  toastSuccessNotify("Logged Out Successfully");
 };
 
 export const signUpProvider = (navigate) => {
   const provider = new GoogleAuthProvider();
   signInWithPopup(auth, provider)
     .then((result) => {
-      console.log(result);
+      // console.log(result);
       navigate("/");
+      toastSuccessNotify("Registered Successfully");
     })
     .catch((error) => {
-      console.log(error);
+      // console.log(error);
+      toastErrorNotify(error.message);
     });
 };
